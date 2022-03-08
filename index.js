@@ -26,7 +26,7 @@ for (const file of commandFiles) {
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
     console.log(`Connecté en tant que ${ client.user.tag}`);
-    client.user.setAvatar('./assets/images/popo_crop2.png');
+    // client.user.setAvatar('./assets/images/gaspar-ventura-popo.jpg');
 });
 
 client.on("messageCreate", async message => {
@@ -35,19 +35,25 @@ client.on("messageCreate", async message => {
     
     const args = message.content.trim().slice(PREFIX.length).split(" ") 
     const commandName = args.shift().toLowerCase()
+
+    console.log('commandName : ' + commandName)
     
     // If client hasn't the command it does nothing
-    if (!client.commands.has(commandName)){
+    if (client.commands.has(commandName)){
         // console.log(commandName + ' introuvable')
-        return;
-    } 
-
-    try {
-        await client.commands.get(commandName).execute(message);
-    } catch (error) {
-        console.error(error);
-        await message.reply('There was an error while executing this command!');
+        console.log('if : ' + commandName)
+        try {
+            await client.commands.get(commandName).execute(message);
+        } catch (error) {
+            console.error(error);
+            await message.reply('There was an error while executing this command!');
+        }
+    } else {
+        const command = require(`./commands2/no command.js`);
+        command.execute(message);
     }
+
+    // return
 })
 
 // Login to Discord with your client's token
