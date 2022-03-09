@@ -36,7 +36,7 @@ client.on("messageCreate", async message => {
     const args = message.content.trim().slice(PREFIX.length).split(" ") 
     const commandName = args.shift().toLowerCase()
 
-    console.log('commandName : ' + commandName)
+    // console.log('commandName : ' + commandName)
     
     // If client hasn't the command it does nothing
     if (client.commands.has(commandName)){
