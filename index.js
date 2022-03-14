@@ -37,20 +37,16 @@ client.on("messageCreate", async message => {
     const commandName = args.shift().toLowerCase()
 
     // console.log('commandName : ' + commandName)
-    
-    // If client hasn't the command it does nothing
-    if (client.commands.has(commandName)){
-        // console.log(commandName + ' introuvable')
-        console.log('if : ' + commandName)
-        try {
+    try {
+        if (client.commands.has(commandName)){
+            console.log('if : ' + commandName)
             await client.commands.get(commandName).execute(message);
-        } catch (error) {
-            console.error(error);
-            await message.reply('There was an error while executing this command!');
+        } else {
+            const command = require(`./commands2/no command.js`);
+            await command.execute(message);
         }
-    } else {
-        const command = require(`./commands2/no command.js`);
-        command.execute(message);
+    } catch (error) {
+        console.error(error);
     }
 
     // return
